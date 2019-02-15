@@ -8,6 +8,6 @@ class CurrentGameData : ScriptableObject
     [SerializeField]
     GameData gameData;
 
-    internal GameData GameData { get => gameData; set => gameData = value; }
+    public GameData GameData { get => gameData; set => gameData = value; }
 }
 

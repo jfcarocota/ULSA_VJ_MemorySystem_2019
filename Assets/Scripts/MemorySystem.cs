@@ -8,12 +8,13 @@ namespace Core.MemorySystem
 {
     public class MemorySystem
     {
-        public static void NewGame()
+        public static void NewGame(string gameName)
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + 
                 "/MyGame.data");
-            bf.Serialize(file, new GameData("RanemeGame", 15, 24));
+            bf.Serialize(file, new GameData(gameName, 15, 24));
+            file.Close();
         }
 
         public static void SaveGame()
@@ -21,9 +22,19 @@ namespace Core.MemorySystem
 
         }
 
-        public static void LoadGame()
+        public static GameData LoadGame()
         {
-
+            if(File.Exists(Application.persistentDataPath +
+                "/MyGame.data"))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath +
+                "/MyGame.data", FileMode.Open);
+                GameData currentGameData = (GameData)bf.Deserialize(file);
+                file.Close();
+                return currentGameData;
+            }
+            return new GameData();
         }
 
         public static void EreaseGame()

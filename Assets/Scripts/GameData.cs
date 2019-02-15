@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-class GameData 
+public class GameData 
 {
     [SerializeField]
     string gameName;
@@ -19,5 +19,7 @@ class GameData
         this.playerlvl = playerlvl;
         this.currentHealth = currentHealth;
     }
+
+    public GameData() { }
 }
 
