@@ -11,7 +11,7 @@ namespace Core.MemorySystem
         public static void NewGame(string gameName)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + 
+            FileStream file = File.Create(Application.persistentDataPath +
                 "/MyGame.data");
             bf.Serialize(file, new GameData(gameName, 15, 24));
             file.Close();
@@ -24,7 +24,7 @@ namespace Core.MemorySystem
 
         public static GameData LoadGame()
         {
-            if(File.Exists(Application.persistentDataPath +
+            if (File.Exists(Application.persistentDataPath +
                 "/MyGame.data"))
             {
                 BinaryFormatter bf = new BinaryFormatter();
@@ -39,7 +39,13 @@ namespace Core.MemorySystem
 
         public static void EreaseGame()
         {
+            string path = Application.persistentDataPath +
+                "/MyGame.data";
 
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 }

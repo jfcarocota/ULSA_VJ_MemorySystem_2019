@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ab46f1f2f34214cbf133593dd78c7d, type: 3}
   m_Name: Game Data
   m_EditorClassIdentifier: 
+  gameData:
+    gameName: Something important
+    playerlvl: 15
+    currentHealth: 24

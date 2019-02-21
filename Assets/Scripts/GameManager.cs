@@ -9,6 +9,8 @@ class GameManager : MonoBehaviour
 
     [SerializeField]
     Button loadGameButton;
+    [SerializeField]
+    Button deleteButton;
 
     [SerializeField]
     CurrentGameData currentGameData;
@@ -17,17 +19,23 @@ class GameManager : MonoBehaviour
     void Awake()
     {
         loadGameButton.onClick.AddListener(LoadGame);
+        deleteButton.onClick.AddListener(DeleteGame);
     }
 
     //Start
     void Start()
     {
-        MemorySystem.NewGame("Pablito sin dinero #elPingo");
+        //MemorySystem.NewGame("Something important");
     }
 
     void LoadGame()
     {
-        currentGameData.GameData = MemorySystem.LoadGame();
+        //currentGameData.GameData = MemorySystem.LoadGame();
+    }
+
+    void DeleteGame()
+    {
+        MemorySystem.EreaseGame();
     }
 }
 
