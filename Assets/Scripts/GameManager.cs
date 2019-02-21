@@ -11,31 +11,46 @@ class GameManager : MonoBehaviour
     Button loadGameButton;
     [SerializeField]
     Button deleteButton;
+    [SerializeField]
+    Button newGameButton;
+    [SerializeField]
+    Button saveGameButton;
 
     [SerializeField]
     CurrentGameData currentGameData;
 
+    public static GameManager instance;
+
     //Start
     void Awake()
     {
+        instance = this;
+
         loadGameButton.onClick.AddListener(LoadGame);
         deleteButton.onClick.AddListener(DeleteGame);
+        newGameButton.onClick.AddListener(NewGame);
+        saveGameButton.onClick.AddListener(SaveGame);
     }
 
     //Start
-    void Start()
+    public void NewGame()
     {
-        //MemorySystem.NewGame("Something important");
+        MemorySystem.NewGame("MyGame");
     }
 
-    void LoadGame()
+    public void SaveGame()
     {
-        //currentGameData.GameData = MemorySystem.LoadGame();
+        MemorySystem.SaveGame(currentGameData.GameData);
     }
 
-    void DeleteGame()
+    public void LoadGame()
     {
-        MemorySystem.EreaseGame();
+        currentGameData.GameData = MemorySystem.LoadGame("MyGame");
+    }
+
+    public void DeleteGame()
+    {
+        MemorySystem.EreaseGame("MyGame");
     }
 }
 

@@ -10,26 +10,37 @@ namespace Core.MemorySystem
     {
         public static void NewGame(string gameName)
         {
+
+            string pathCombined = Path.Combine(Application.persistentDataPath,
+                gameName + ".data");
+
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath +
-                "/MyGame.data");
+            FileStream file = File.Create(pathCombined);
             bf.Serialize(file, new GameData(gameName, 15, 24));
             file.Close();
         }
 
-        public static void SaveGame()
+        public static void SaveGame(GameData gameData)
         {
+            string pathCombined = Path.Combine(Application.persistentDataPath,
+                gameData.GameName + ".data");
 
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(pathCombined);
+            bf.Serialize(file, gameData);
+            file.Close();
         }
 
-        public static GameData LoadGame()
+        public static GameData LoadGame(string gameName)
         {
-            if (File.Exists(Application.persistentDataPath +
-                "/MyGame.data"))
+
+            string pathCombined = Path.Combine(Application.persistentDataPath,
+                gameName + ".data");
+
+            if (File.Exists(pathCombined))
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open(Application.persistentDataPath +
-                "/MyGame.data", FileMode.Open);
+                FileStream file = File.Open(pathCombined, FileMode.Open);
                 GameData currentGameData = (GameData)bf.Deserialize(file);
                 file.Close();
                 return currentGameData;
@@ -37,14 +48,14 @@ namespace Core.MemorySystem
             return new GameData();
         }
 
-        public static void EreaseGame()
+        public static void EreaseGame(string gameName)
         {
-            string path = Application.persistentDataPath +
-                "/MyGame.data";
+            string pathCombined = Path.Combine(Application.persistentDataPath, 
+                gameName + ".data");
 
-            if (File.Exists(path))
+            if (File.Exists(pathCombined))
             {
-                File.Delete(path);
+                File.Delete(pathCombined);
             }
         }
     }

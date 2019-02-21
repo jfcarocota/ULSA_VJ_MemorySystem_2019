@@ -12,6 +12,8 @@ public class GameData
     [SerializeField]
     float currentHealth;
 
+    public string GameName { get => gameName;}
+
     public GameData(string gameName, 
         int playerlvl, float currentHealth)
     {
