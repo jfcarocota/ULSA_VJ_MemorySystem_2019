@@ -52,5 +52,7 @@ class GameManager : MonoBehaviour
     {
         MemorySystem.EreaseGame("MyGame");
     }
+
+    
 }
 

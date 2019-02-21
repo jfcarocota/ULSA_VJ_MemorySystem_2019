@@ -58,5 +58,10 @@ namespace Core.MemorySystem
                 File.Delete(pathCombined);
             }
         }
+
+        public string[] FilePaths
+        {
+            get => Directory.GetFiles(Application.dataPath + "/", "*.data");
+        }
     }
 }
