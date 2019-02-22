@@ -8,6 +8,7 @@ namespace Core.MemorySystem
 {
     public class MemorySystem
     {
+        static DirectoryInfo dirInf = new DirectoryInfo(Application.persistentDataPath + "/");
         public static void NewGame(string gameName)
         {
 
@@ -59,9 +60,11 @@ namespace Core.MemorySystem
             }
         }
 
-        public string[] FilePaths
+        
+
+        public static FileInfo[] FilePaths
         {
-            get => Directory.GetFiles(Application.dataPath + "/", "*.data");
+            get => new DirectoryInfo(Application.persistentDataPath + "/").GetFiles("*.data*");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core.MemorySystem;
 using UnityEngine.UI;
+using System.IO;
 
 class GameManager : MonoBehaviour
 {
@@ -15,9 +16,14 @@ class GameManager : MonoBehaviour
     Button newGameButton;
     [SerializeField]
     Button saveGameButton;
+    [SerializeField]
+    InputField gameNameIF;
 
     [SerializeField]
     CurrentGameData currentGameData;
+
+    [SerializeField]
+    GameObject saveFileObj;
 
     public static GameManager instance;
 
@@ -26,16 +32,21 @@ class GameManager : MonoBehaviour
     {
         instance = this;
 
-        loadGameButton.onClick.AddListener(LoadGame);
+        //loadGameButton.onClick.AddListener(LoadGame);
         deleteButton.onClick.AddListener(DeleteGame);
         newGameButton.onClick.AddListener(NewGame);
         saveGameButton.onClick.AddListener(SaveGame);
     }
 
-    //Start
+    void Start()
+    {
+        PopulateSaveFilesPanel();
+    }
+
     public void NewGame()
     {
-        MemorySystem.NewGame("MyGame");
+        if (gameNameIF.text == null) return;
+        MemorySystem.NewGame(gameNameIF.text);
     }
 
     public void SaveGame()
@@ -43,9 +54,9 @@ class GameManager : MonoBehaviour
         MemorySystem.SaveGame(currentGameData.GameData);
     }
 
-    public void LoadGame()
+    public void LoadGame(string gameName)
     {
-        currentGameData.GameData = MemorySystem.LoadGame("MyGame");
+        currentGameData.GameData = MemorySystem.LoadGame(gameName);
     }
 
     public void DeleteGame()
@@ -53,6 +64,16 @@ class GameManager : MonoBehaviour
         MemorySystem.EreaseGame("MyGame");
     }
 
-    
+    void PopulateSaveFilesPanel()
+    {
+        foreach(FileInfo fi in MemorySystem.FilePaths)
+        {
+            string gameName = Path.GetFileNameWithoutExtension(fi.Name);
+            GameObject go =  Instantiate(saveFileObj, saveFileObj.transform.parent) as GameObject;
+            SaveFile sf = go.GetComponent<SaveFile>();
+            sf.GameName = gameName;
+            go.SetActive(true);
+        }
+    }
 }
 
